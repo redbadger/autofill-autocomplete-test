@@ -4,8 +4,64 @@
   <title>Autofill and autocomplete test</title>
 </head>
 <body>
-  <form action="/post" method="post">
-    <input type="text" name="name">
+  <form action="/post" method="post" name="no-autocomplete-settings">
+    <label for="user-name">User name</label>
+    <input type="text" name="user-name">
+
+    <label for="password">Password</label>
+    <input type="password" name="password">
+
+    <button type="submit">Submit</button>
   </form>
+
+
+  <div>
+    <div id="form-on-change"></div>
+    <div id="user-name-on-change"></div>
+    <div id="password-on-change"></div>
+  </div>
+
+  <script>
+    var startTime = new Date().getTime();
+    var formResults = document.getElementById('form-on-change');
+    var userNameResults = document.getElementById('user-name-on-change');
+    var passwordResults = document.getElementById('password-on-change');
+    var form = document.forms[0];
+
+    function now() {
+      return new Date().getTime() - startTime + 'ms';
+    }
+
+    function render(el, data) {
+      return el.innerHTML =
+        "<pre>" + data.join("\n") + "</pre>";
+    }
+
+    form.addEventListener('change', function() {
+      render(formResults, [
+        "form changed:" + now(),
+        " user-name: " + form.elements[0].value,
+        " password: " + form.elements[1].value
+      ]);
+    });
+
+    var userNameField = form.elements[0];
+    userNameField.addEventListener('change', function() {
+      render(userNameResults, [
+        "user-name changed:" + now(),
+        " user-name: " + form.elements[0].value,
+        " password: " + form.elements[1].value
+      ]);
+    });
+
+    var passwordField = form.elements[1];
+    passwordField.addEventListener('change', function() {
+      render(passwordResults, [
+        "password changed:" + now(),
+        " user-name: " + form.elements[0].value,
+        " password: " + form.elements[1].value
+      ]);
+    });
+  </script>
 </body>
 </html>
