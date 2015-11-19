@@ -11,43 +11,49 @@ Then head to [http://localhost:3000](http://localhost:3000).
 
 ## Browser testing:
 
-### Chrome 46 on Mac OSX, Android
-
-#### Autofill
+All tests were made on `http` which might change browser behaviour. They assume the following steps for autofill:
 
   1. Fill in user name and password
   2. Agree for chrome to save entries
   3. Go back to `/`, values should be autofilled
 
-**Results:**
+### Chrome 46 on Mac OSX, Android
+
+#### Autofill
+
 If you open a new window/tab and go to the same location, the event will not fire for the password field. You have to interact with the page for the `change` event to happen on the password too (e.g. click anywhere on the page). If you refresh the window/tab the event will fire on both fields.
 
 #### Autocomplete
   
-  1. Fill in a field and submit
-  2. Click on a field and start typing the same value, autocomplete dropdown should appear
-
-**Results:**
-
+Click on a field and start typing the same value that was submitted before, autocomplete dropdown should appear.
 `input` event fires when the value is chosen from the dropdown.
 
 ### Safari 9 on Mac OSX
 
 #### Autofill
 
-  1. Fill in fields
-  2. Agree to save
-  3. Go back to `/`
-  4. With key icon
-    a. Click on the password field, there should be a key icon
-    b. Click the key and chose the user-name you entered
-  5. With keyboard shortcut
-    a. press shift + cmd + a
-  6. Automatically
-    a. triggered only on https?
+  You can apply autofill on Safari in several ways (after the initial steps):
+  
+  1. Key icon
+    1. Click on the password field, there should be a key icon
+    2. Click the key and chose the name you entered
+  2. With keyboard shortcut
+    1. press shift + cmd + a
+  3. Automatically
+    1. triggered only on https?
 
-**Results:**
-Both change and input events fire for fields.
+
+Both change and input events fire for both fields.
+
+### Firefox 42 on Mac OSX
+
+#### Aufofill
+
+Both `input` and `change` events are fired for the `name` field but none for the `password` field, even after page interaction.
+
+#### Aufocomplete
+
+Same behaviours as for autofill - after choosing a value from the dropdown, `name` triggers both events and `password` none.
 
 ## Usefull links:
 
