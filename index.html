@@ -5,11 +5,8 @@
 </head>
 <body>
   <form action="/post" method="post" name="no-autocomplete-settings">
-    <label for="user-name">User name</label>
-    <input type="text" name="user-name">
-
-    <label for="telephone">Phone</label>
-    <input type="text" name="telephone">
+    <label for="name">Name</label>
+    <input type="text" name="name">
 
     <label for="password">Password</label>
     <input type="password" name="password">
@@ -21,15 +18,13 @@
   <div style="margin-top: 100px">
     <h2>Change events</h2>
     <div id="form-on-change"></div>
-    <div id="user-name-on-change"></div>
-    <div id="tel-on-change"></div>
+    <div id="name-on-change"></div>
     <div id="password-on-change"></div>
   </div>
 
   <div>
     <h2>Input events</h2>
-    <div id="user-name-on-input"></div>
-    <div id="tel-on-input"></div>
+    <div id="name-on-input"></div>
     <div id="password-on-input"></div>
   </div>
 
@@ -38,12 +33,10 @@
     var formResults = document.getElementById('form-on-change');
     var form = document.forms[0];
 
-    var userNameChangeResults = document.getElementById('user-name-on-change');
-    var telChangeResults = document.getElementById('tel-on-change');
+    var userNameChangeResults = document.getElementById('name-on-change');
     var passwordChangeResults = document.getElementById('password-on-change');
 
-    var userNameInputResults = document.getElementById('user-name-on-input');
-    var telInputResults = document.getElementById('tel-on-input');
+    var userNameInputResults = document.getElementById('name-on-input');
     var passwordInputResults = document.getElementById('password-on-input');
 
     function now() {
@@ -56,8 +49,7 @@
         field +
         "\n" +
         [
-          " user-name: " + form.elements[0].value,
-          " tel: " + form.elements[1].value,
+          " name: " + form.elements[0].value,
           " password: " + form.elements[2].value
         ].join("\n") +
         "</pre>";
@@ -69,20 +61,11 @@
 
     var userNameField = form.elements[0];
     userNameField.addEventListener('change', function() {
-      render(userNameChangeResults, "user-name changed:" + now());
+      render(userNameChangeResults, "name changed:" + now());
     });
 
     userNameField.addEventListener('input', function() {
-      render(userNameInputResults, "user-name changed:" + now());
-    });
-
-    var telField = form.elements[1];
-    telField.addEventListener('change', function() {
-      render(telChangeResults, "tel changed:" + now());
-    });
-
-    telField.addEventListener('input', function() {
-      render(telInputResults, "tel changed:" + now());
+      render(userNameInputResults, "name changed:" + now());
     });
 
     var passwordField = form.elements[2];
