@@ -8,6 +8,9 @@
     <label for="user-name">User name</label>
     <input type="text" name="user-name">
 
+    <label for="telephone">Phone</label>
+    <input type="text" name="telephone">
+
     <label for="password">Password</label>
     <input type="password" name="password">
 
@@ -15,52 +18,80 @@
   </form>
 
 
-  <div>
+  <div style="margin-top: 100px">
+    <h2>Change events</h2>
     <div id="form-on-change"></div>
     <div id="user-name-on-change"></div>
+    <div id="tel-on-change"></div>
     <div id="password-on-change"></div>
+  </div>
+
+  <div>
+    <h2>Input events</h2>
+    <div id="user-name-on-input"></div>
+    <div id="tel-on-input"></div>
+    <div id="password-on-input"></div>
   </div>
 
   <script>
     var startTime = new Date().getTime();
     var formResults = document.getElementById('form-on-change');
-    var userNameResults = document.getElementById('user-name-on-change');
-    var passwordResults = document.getElementById('password-on-change');
     var form = document.forms[0];
+
+    var userNameChangeResults = document.getElementById('user-name-on-change');
+    var telChangeResults = document.getElementById('tel-on-change');
+    var passwordChangeResults = document.getElementById('password-on-change');
+
+    var userNameInputResults = document.getElementById('user-name-on-input');
+    var telInputResults = document.getElementById('tel-on-input');
+    var passwordInputResults = document.getElementById('password-on-input');
 
     function now() {
       return new Date().getTime() - startTime + 'ms';
     }
 
-    function render(el, data) {
+    function render(el, field) {
       return el.innerHTML =
-        "<pre>" + data.join("\n") + "</pre>";
+        "<pre>" +
+        field +
+        "\n" +
+        [
+          " user-name: " + form.elements[0].value,
+          " tel: " + form.elements[1].value,
+          " password: " + form.elements[2].value
+        ].join("\n") +
+        "</pre>";
     }
 
     form.addEventListener('change', function() {
-      render(formResults, [
-        "form changed:" + now(),
-        " user-name: " + form.elements[0].value,
-        " password: " + form.elements[1].value
-      ]);
+      render(formResults, "form changed:" + now());
     });
 
     var userNameField = form.elements[0];
     userNameField.addEventListener('change', function() {
-      render(userNameResults, [
-        "user-name changed:" + now(),
-        " user-name: " + form.elements[0].value,
-        " password: " + form.elements[1].value
-      ]);
+      render(userNameChangeResults, "user-name changed:" + now());
     });
 
-    var passwordField = form.elements[1];
+    userNameField.addEventListener('input', function() {
+      render(userNameInputResults, "user-name changed:" + now());
+    });
+
+    var telField = form.elements[1];
+    telField.addEventListener('change', function() {
+      render(telChangeResults, "tel changed:" + now());
+    });
+
+    telField.addEventListener('input', function() {
+      render(telInputResults, "tel changed:" + now());
+    });
+
+    var passwordField = form.elements[2];
     passwordField.addEventListener('change', function() {
-      render(passwordResults, [
-        "password changed:" + now(),
-        " user-name: " + form.elements[0].value,
-        " password: " + form.elements[1].value
-      ]);
+      render(passwordChangeResults, "password changed:" + now());
+    });
+
+    passwordField.addEventListener('input', function() {
+      render(passwordInputResults, "password changed:" + now());
     });
   </script>
 </body>
