@@ -47,7 +47,7 @@ Both change and input events fire for both fields.
 
 ### Firefox 42 on Mac OSX
 
-#### Aufofill
+#### Autofill
 
 Both `input` and `change` events are fired for the `name` field but none for the `password` field, even after page interaction.
 
